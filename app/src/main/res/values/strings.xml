@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="error_data_message">Error Loading data</string>
+    <string name="citySearch">Search</string>
+    <string name="cityString">City</string>
+    <string name="temperature">0</string>
+    <string name="iconDescription">Weather description</string>
+    <string name="observationTime">Time observed</string>
+    <string name="alertLabel">Alerts</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
