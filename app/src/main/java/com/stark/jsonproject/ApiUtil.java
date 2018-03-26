@@ -82,6 +82,10 @@
             final String FAHRENHEIT = "fahrenheit";
             final String FORECAST_DAY = "forecastday";
             final String FORECAST = "forecast";
+            final String LOCATION = "location";
+            final String CITY = "city";
+            final String STATE = "state";
+            final String COUNTRY = "country";
 
             Weather CityWeather = new Weather();
 
@@ -93,7 +97,10 @@
                 JSONArray hourlyArray = jsonWeather.getJSONArray(HOURLY_FORECAST);
                 JSONObject forecastJSON = jsonWeather.getJSONObject(FORECAST);
                 JSONObject simpleJSON = forecastJSON.getJSONObject(SIMPLE_FORECAST);
-
+                JSONObject locJSON = jsonWeather.getJSONObject(LOCATION);
+                String city = locJSON.getString(CITY);
+                String state = locJSON.getString(STATE);
+                String country = locJSON.getString(COUNTRY);
 
                 int numberAlerts = alertsArray.length();
                 String[] alerts = new String[numberAlerts];
@@ -143,6 +150,9 @@
                 }
 
                 CityWeather = new Weather(
+                        city,
+                        state,
+                        country,
                         displayJSON.getString(FULL),
                         currentJSON.getString(OBSERVATION_TIME),
                         currentJSON.getString(TEMPERATURE_F),

@@ -57,7 +57,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:id="@+id/cityString"
@@ -91,14 +92,15 @@
             android:layout_marginEnd="6dp"
             app:layout_constraintBottom_toBottomOf="@+id/temperature"
             app:layout_constraintEnd_toStartOf="@+id/temperature"
-            app:srcCompat="@android:drawable/ic_menu_camera" />
+            app:srcCompat="@android:drawable/ic_menu_camera"
+            android:layout_marginRight="6dp" />
 
         <TextView
             android:id="@+id/observationTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="70dp"
             android:text="@{Weather.observation_time}"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -120,7 +122,8 @@
             android:layout_marginBottom="165dp"
             android:layout_marginStart="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="24dp" />
 
         <TextView
             android:id="@+id/alertLabel"
@@ -650,6 +653,7 @@
             android:id="@+id/wunderGround"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_camera" />

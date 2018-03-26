@@ -6,6 +6,9 @@ package com.stark.jsonproject;
 
 public class Weather {
 
+    public String city;
+    public String country;
+    public String state;
     public String fullName;
     public String observation_time;
     public String temperature;
@@ -23,7 +26,10 @@ public class Weather {
     public Weather() {
     }
 
-    public Weather(String fullName, String observation_time, String temperature, String iconDescription, String iconURL, String[] alerts, String[] hourlyHour, String[] hourlyTemp, String[] hourlyCondition, String[] weeklyDay, String[] weeklyHigh, String[] weeklyLow, String[] weeklyCondition) {
+    public Weather(String city, String state,String country, String fullName, String observation_time, String temperature, String iconDescription, String iconURL, String[] alerts, String[] hourlyHour, String[] hourlyTemp, String[] hourlyCondition, String[] weeklyDay, String[] weeklyHigh, String[] weeklyLow, String[] weeklyCondition) {
+        this.city = city;
+        this.country = country;
+        this.state = state;
         this.fullName = fullName;
         this.observation_time = observation_time;
         this.temperature = temperature;
