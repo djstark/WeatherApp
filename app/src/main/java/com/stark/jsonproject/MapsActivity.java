@@ -65,15 +65,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     public void onClick(View v) {
 
-        try {
-            Intent intent =
-                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
-                            .build(this);
-            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-        } catch (GooglePlayServicesRepairableException e) {
-            // TODO: Handle the error.
-        } catch (GooglePlayServicesNotAvailableException e) {
-            // TODO: Handle the error. */
+        if(v == findViewById(R.id.cityInput)) {
+            try {
+                Intent intent =
+                        new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                                .build(this);
+                startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+            } catch (GooglePlayServicesRepairableException e) {
+                // TODO: Handle the error.
+            } catch (GooglePlayServicesNotAvailableException e) {
+                // TODO: Handle the error. */
+            }
+        }
+        if( v == findViewById(R.id.backButton)){
+            Intent intent = new Intent();
+            intent.putExtra("lat", currentLocation.latitude);
+            intent.putExtra("long",currentLocation.longitude);
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
     @Override

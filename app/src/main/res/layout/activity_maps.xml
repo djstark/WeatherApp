@@ -17,21 +17,23 @@
 
 
     <Button
+        android:id="@+id/cityInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
         android:onClick="onClick"
         android:padding="10dp"
         android:layout_marginTop="20dp"
-        android:text="Demo Button" />
+        android:text="City input" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/backButton"
         android:layout_width="26dp"
         android:layout_height="wrap_content"
         android:layout_gravity="top|left"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
+        android:onClick="onClick"
         android:src="?android:attr/actionModeCloseDrawable"
         android:visibility="visible" />
 </FrameLayout>

@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="java.lang.Integer"/>
         <variable
             name="Weather"
             type="com.stark.jsonproject.Weather"/>
     </data>
 
-<android.support.constraint.ConstraintLayout
+
+    <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.stark.jsonproject.MainActivity">
@@ -72,72 +74,584 @@
 
     <TextView
         android:id="@+id/temperature"
-        android:textSize="34sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@{Weather.temperature}"
+        android:textSize="34sp"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cityString" />
 
-    <ImageView
-        android:id="@+id/weatherIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/temperature"
-        app:layout_constraintTop_toTopOf="@+id/temperature"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        <ImageView
+            android:id="@+id/weatherIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintBottom_toBottomOf="@+id/temperature"
+            app:layout_constraintEnd_toStartOf="@+id/temperature"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
 
-    <TextView
-        android:id="@+id/iconDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@{Weather.iconDescription}"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="@+id/temperature"
-        app:layout_constraintTop_toBottomOf="@+id/temperature" />
+        <TextView
+            android:id="@+id/observationTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="@{Weather.observation_time}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/observationTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="108dp"
-        android:text="@{Weather.observation_time}"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <ImageView
+            android:id="@+id/radar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
 
-    <ImageView
-        android:id="@+id/radar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
-        android:layout_marginEnd="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        <TextView
+            android:id="@+id/alerts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="165dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/alerts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="216dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/alertLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:text="@string/alertLabel"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/alerts"
+            app:layout_constraintStart_toStartOf="@+id/alerts" />
 
-    <TextView
-        android:id="@+id/alertLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/alertLabel"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/alerts"
-        app:layout_constraintStart_toStartOf="@+id/alerts" />
+        <LinearLayout
+            android:id="@+id/hourlyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="190dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-</android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyHour[0]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyHour[1]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyHour[2]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyHour[3]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyHour[4]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyHour[5]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyHour[6]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyHour[7]}" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyTemp[0]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyTemp[1]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyTemp[2]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyTemp[3]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyTemp[4]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyTemp[5]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyTemp[6]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.hourlyTemp[7]}" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/cond1"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/cond2"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/cond3"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/cond4"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/cond5"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/cond6"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/cond7"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/cond8"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/weeklyLayout"
+            android:layout_width="349dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="287dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyDay[0]}" />
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyDay[1]}" />
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyDay[2]}" />
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyDay[3]}" />
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyDay[4]}" />
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyDay[5]}" />
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyDay[6]}" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyHigh[0]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyHigh[1]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyHigh[2]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyHigh[3]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyHigh[4]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyHigh[5]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyHigh[6]}" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyLow[0]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyLow[1]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyLow[2]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyLow[3]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyLow[4]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyLow[5]}" />
+
+                <TextView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{Weather.weeklyLow[6]}" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/weeklyCond1"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/weeklyCond2"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/weeklyCond3"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/weeklyCond4"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/weeklyCond5"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/weeklyCond6"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+                <ImageView
+                    android:id="@+id/weeklyCond7"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:srcCompat="@android:drawable/ic_menu_camera" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/hourlyLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/hourly"
+            app:layout_constraintBottom_toTopOf="@+id/hourlyLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/weeklyLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/weekly"
+            app:layout_constraintBottom_toTopOf="@+id/weeklyLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:layout_width="368dp"
+            android:layout_height="2px"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/hourlyLabel"/>
+
+        <View
+            android:layout_width="368dp"
+            android:layout_height="2px"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="@id/weeklyLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/wunderGround"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
+    </android.support.constraint.ConstraintLayout>
 </layout>

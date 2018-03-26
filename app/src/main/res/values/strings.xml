@@ -8,4 +8,6 @@
     <string name="observationTime">Time observed</string>
     <string name="alertLabel">Alerts</string>
     <string name="title_activity_maps">Map</string>
+    <string name="weekly">Weekly</string>
+    <string name="hourly">Hourly</string>
 </resources>
