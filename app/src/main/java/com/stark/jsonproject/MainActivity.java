@@ -94,6 +94,20 @@ public class MainActivity extends AppCompatActivity {
             }
             startActivityForResult(intent, MAP_ACTIVITY_REQUEST_CODE);
         }
+        if (v == findViewById(R.id.refreshView)) {
+            if(userLocation != null){
+                locationQuery = CONDITION_QUERY + userLocation.getLatitude() + ',' + userLocation.getLongitude() + ".json";
+                URL weatherUrl = ApiUtil.buildUrl(locationQuery);
+                fullRadarQuery = RADAR_QUERY + "image.gif?centerlat="+ userLocation.getLatitude() + "&centerlon=" + userLocation.getLongitude() + "&radius=100&width=280&height=280&newmaps=1";
+                new WeatherQueryTask().execute(weatherUrl);
+            }
+            else{
+                locationQuery = CONDITION_QUERY + manualLocation.latitude + ',' + manualLocation.longitude + ".json";
+                URL weatherUrl = ApiUtil.buildUrl(locationQuery);
+                fullRadarQuery = RADAR_QUERY + "image.gif?centerlat=" + manualLocation.latitude + "&centerlon=" + manualLocation.longitude + "&radius=100&width=280&height=280&newmaps=1";
+                new WeatherQueryTask().execute(weatherUrl);
+            }
+        }
     }
 
     @Override

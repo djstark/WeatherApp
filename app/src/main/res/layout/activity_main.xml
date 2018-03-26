@@ -657,5 +657,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_camera" />
+
+        <ImageView
+            android:id="@+id/refreshView"
+            android:layout_width="31dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginStart="22dp"
+            android:onClick="onClick"
+            android:tint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@android:drawable/stat_notify_sync" />
     </android.support.constraint.ConstraintLayout>
 </layout>
