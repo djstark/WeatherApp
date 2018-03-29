@@ -24,6 +24,8 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.stark.jsonproject.databinding.ActivityMainBinding;
 
@@ -220,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
                 Picasso.get()
                         .load(fullRadarQuery)
                         .resize(530, 530)
+                        .networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE)
                         .into(ivRadar);
                 Picasso.get()
                         .load(cityWeather.hourlyCondition[0])
